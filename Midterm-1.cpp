@@ -200,10 +200,34 @@ public:
     void every_other_element(){
         Node* current = head;      // Start at head of the list
         bool printNode = true;     // To print every other node
+
+         if (!current){
+            cout << "List is empty." << endl;
+            return;
+         }
+         cout << "Every other element: ";
+         while (current){
+            if (printNode){
+                cout << current->data << " ";  // Print current node's data
+            }
+            printNode = !printNode;  // Flip toggle to skip next node
+            current = current->next; // Move to next node
+         }
+         cout << endl;
     }
 };
-
+// Main function to demonstrate the DoublyLinkedList and new method
 int main() {
+    DoublyLinkedList dll;  // Create doubly linked list object
+
+    // Add some elements to the list
+    dll.push_back(10);
+    dll.push_back(20);
+    dll.push_back(30);
+    dll.push_back(40);
+    dll.push_back(50);
+
+    
     cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS; // dummy statement to avoid compiler warning
     return 0;
 }
