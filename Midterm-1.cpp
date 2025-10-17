@@ -1,5 +1,5 @@
-#include <iostream>
-using namespace std;
+#include <iostream>      // COMSC-210 | Exam-1-DoubleLinkedList | Mansoor Noori
+using namespace std;     // IDE Visual Studio,
 
 // Constants defined but unused here, just placeholders to avoid warnings
 const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
