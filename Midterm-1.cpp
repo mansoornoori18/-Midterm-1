@@ -20,49 +20,57 @@ private:
             next = n;     // Set next pointer (default nullptr)
         }
     };
-    Node* head;
-    Node* tail;
+
+    Node* head;          // Pointer to the first node in the list
+    Node* tail;          // Pointer to the last node in the list
 
 public:
-    DoublyLinkedList() { head = nullptr; tail = nullptr; }
-
+    // Constructor initializes an empty list
+    DoublyLinkedList(){
+        head = nullptr;    // Empty list: no head
+        tail = nullptr;    // Empty list: no tail
+     }
+    // Insert a node with value 'value' after the node at 'position' (0-based index)
     void insert_after(int value, int position) {
-        if (position < 0) {
+        if (position < 0) {    // Position must be zero or positive
             cout << "Position must be >= 0." << endl;
             return;
         }
-        Node* newNode = new Node(value);
-        if (!head) {
+        Node* newNode = new Node(value);    // Create new node with value
+        if (!head) {                        // If list is empty, new node becomes head and tail
             head = tail = newNode;
             return;
         }
+        // Traverse to node at the given position or nullptr if position too large
         Node* temp = head;
         for (int i = 0; i < position && temp; ++i)
             temp = temp->next;
-        if (!temp) {
+        if (!temp) {        // Position is beyond the current list size, insertion fail
             cout << "Position exceeds list size. Node not inserted.\n";
-            delete newNode;
+            delete newNode;    // avoid memory leak by deleting allocated node
             return;
         }
-        newNode->next = temp->next;
-        newNode->prev = temp;
-        if (temp->next)
-            temp->next->prev = newNode;
+        // Link newNode in between temp and temp->next
+        newNode->next = temp->next;  // New node's next is current node's next
+        newNode->prev = temp;        // New node's prev is current node (temp)
+        if (temp->next)              // If temp is not tail
+            temp->next->prev = newNode;  // Adjust the next node's prev pointer to newNode
         else
-            tail = newNode;
-        temp->next = newNode;
+            tail = newNode;              // If inserting at tail, update tail pointer
+        temp->next = newNode;            // Link temp's next to newNode
     }
-
+    // Delete the first node found with the given value
     void delete_val(int value) {
-        if (!head) return;
+        if (!head) return;        // Empty list, nothing to delete
         Node* temp = head;
+        // Traverse to find the node with the specified value
         while (temp && temp->data != value)
             temp = temp->next;
-        if (!temp) return;
-        if (temp->prev)
-            temp->prev->next = temp->next;
+        if (!temp) return;      // Value not found, nothing to delete
+        if (temp->prev)         // Relink pointers to remove Temp from the list
+            temp->prev->next = temp->next;  // Link previous node's next to temp's next
         else
-            head = temp->next;
+            head = temp->next;              // If deleting head, move head forward
         if (temp->next)
             temp->next->prev = temp->prev;
         else
