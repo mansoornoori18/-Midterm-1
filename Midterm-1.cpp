@@ -72,18 +72,18 @@ public:
         else
             head = temp->next;              // If deleting head, move head forward
         if (temp->next)
-            temp->next->prev = temp->prev;
+            temp->next->prev = temp->prev;  // Link next node's prev to temp's prev
         else
-            tail = temp->prev;
-        delete temp;
+            tail = temp->prev;              // If deleting tail, move tail back
+        delete temp;     // Free memory for deleted node
     }
-
+    // Delete the node at the specified position (1-based index)
     void delete_pos(int pos) {
         if (!head) {
             cout << "List is empty." << endl;
             return;
         }
-        if (pos == 1) {
+        if (pos == 1) {  // If position is 1, remove head node
             pop_front();
             return;
         }
@@ -94,66 +94,67 @@ public:
                 return;
             }
             else
-                temp = temp->next;
+                temp = temp->next;     // Move temp to the desired position
         }
-        if (!temp) {
+        if (!temp) {  // Position out of range
             cout << "Position doesn't exist." << endl;
             return;
         }
-        if (!temp->next) {
+        if (!temp->next) {  // If node is tail, remove tail
             pop_back();
             return;
         }
+        // Re-link neighbors to bypass temp node
         Node* tempPrev = temp->prev;
         tempPrev->next = temp->next;
         temp->next->prev = tempPrev;
-        delete temp;
+        delete temp;    // Delete the node at pos
     }
-
+    // Add a node at the end of the list
     void push_back(int v) {
-        Node* newNode = new Node(v);
-        if (!tail)
+        Node* newNode = new Node(v);  // Create new node with value
+        if (!tail)    // If list empty, new node is head and tail
             head = tail = newNode;
         else {
-            tail->next = newNode;
-            newNode->prev = tail;
-            tail = newNode;
+            tail->next = newNode;  // Link current tail's next to newNode
+            newNode->prev = tail;  // Link newNode's prev to current tail
+            tail = newNode;        // Update tail pointer to newNode
         }
     }
-
+    // Add a node at the front of the list
     void push_front(int v) {
-        Node* newNode = new Node(v);
-        if (!head)
+        Node* newNode = new Node(v);  // Create new node with value
+        if (!head)    // If list empty, new node is head and tail
             head = tail = newNode;
         else {
-            newNode->next = head;
-            head->prev = newNode;
-            head = newNode;
-        }
+            newNode->next = head;  // New node's next is old head
+            head->prev = newNode;  // Old head's prev points to newNode
+            head = newNode;        // Update head to newNode
+        } 
     }
-
+    // Remove node from the front of the list
     void pop_front() {
-        if (!head) {
+        if (!head) {   // Empty list
             cout << "List is empty." << endl;
             return;
         }
-        Node* temp = head;
-        if (head->next) {
-            head = head->next;
-            head->prev = nullptr;
+        Node* temp = head;   // Temporarily store old head
+        if (head->next) {     // More than one node
+            head = head->next;   // Move head forward
+            head->prev = nullptr; // Remove backward link to old head
         }
-        else
-            head = tail = nullptr;
-        delete temp;
+        else   // Only one node in the list
+            head = tail = nullptr;   // List becomes empty
+        delete temp;    // Delete old head node
     }
-
+    // Remove node from the back of the list
     void pop_back() {
-        if (!tail) {
+        if (!tail) {   // Empty list
             cout << "List is empty." << endl;
             return;
         }
-        Node* temp = tail;
-        if (tail->prev) {
+        Node* temp = tail;    // Temporarily store old tail
+        if (tail->prev) {     // More than one node
             tail = tail->prev;
             tail->next = nullptr;
         }
