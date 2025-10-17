@@ -227,7 +227,11 @@ int main() {
     dll.push_back(40);
     dll.push_back(50);
 
-    
+    cout << "Full list: ";
+    dll.print();  // Output full list, should be 10 20 30 40 50
+
+    dll.every_other_element();  // Output every other element, should print 10 30 50
+
     cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS; // dummy statement to avoid compiler warning
     return 0;
 }
