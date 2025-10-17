@@ -155,35 +155,35 @@ public:
         }
         Node* temp = tail;    // Temporarily store old tail
         if (tail->prev) {     // More than one node
-            tail = tail->prev;
-            tail->next = nullptr;
+            tail = tail->prev;  // Move tail backward
+            tail->next = nullptr;  // Remove forward link to old tail
         }
-        else
-            head = tail = nullptr;
-        delete temp;
+        else  // Only one node in the list
+            head = tail = nullptr; // List becomes empty
+        delete temp;  // Delete old tail node
     }
-
+    // Destructor: cleans up all nodes to prevent memory leaks
     ~DoublyLinkedList() {
-        while (head) {
-            Node* temp = head;
-            head = head->next;
-            delete temp;
+        while (head) {   // While list is not empty
+            Node* temp = head;  // Temporarily hold current head
+            head = head->next;  // Move head forward
+            delete temp;        // Delete old head
         }
     }
-
+    // Print list from head to tail
     void print() {
         Node* current = head;
         if (!current) {
             cout << "List is empty." << endl;
             return;
         }
-        while (current) {
-            cout << current->data << " ";
-            current = current->next;
+        while (current) {   
+            cout << current->data << " "; // Output current node's data
+            current = current->next;   // Move forward
         }
         cout << endl;
     }
-
+    // Print list from tail to head (reverse order)
     void print_reverse() {
         Node* current = tail;
         if (!current) {
@@ -191,10 +191,15 @@ public:
             return;
         }
         while (current) {
-            cout << current->data << " ";
-            current = current->prev;
+            cout << current->data << " ";  // Output current node's data
+            current = current->prev;       // Move backward
         }
         cout << endl;
+    }
+    // New method: print every other element starting with the first
+    void every_other_element(){
+        Node* current = head;      // Start at head of the list
+        bool printNode = true;     // To print every other node
     }
 };
 
