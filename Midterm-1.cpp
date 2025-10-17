@@ -1,18 +1,23 @@
 #include <iostream>
 using namespace std;
 
+// Constants defined but unused here, just placeholders to avoid warnings
 const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
 
+// DoublyLinkedList class definition
 class DoublyLinkedList {
 private:
+    // Node structure represents each element of the list
     struct Node {
-        int data;
-        Node* prev;
-        Node* next;
+        int data;      // Data stored in the node
+        Node* prev;    // Pointer to the previous node in the list
+        Node* next;    // Pointer to the next node in the list
+
+        // Node constructor initializes data and optionally previous/next pointers
         Node(int val, Node* p = nullptr, Node* n = nullptr) {
-            data = val;
-            prev = p;
-            next = n;
+            data = val;   // Set node's data
+            prev = p;     // Set previous pointer (default nullptr)
+            next = n;     // Set next pointer (default nullptr)
         }
     };
     Node* head;
